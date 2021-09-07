@@ -1,6 +1,6 @@
 {
-  "name": "esbuild-stylus-loader",
-  "version": "0.3.1",
+  "name": "@hurui/esbuild-stylus-loader",
+  "version": "0.3.3",
   "description": "esbuild plugin for stylus files",
   "keywords": [
     "esbuild",
@@ -8,12 +8,11 @@
   ],
   "author": {
     "name": "ym-project",
-    "email": "ym-project@protonmail.com",
-    "url": "https://github.com/ym-project"
+    "email": "ym-project@protonmail.com"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/ym-project/esbuild-stylus-loader"
+    "url": "https://github.com/hurui/esbuild-stylus-loader"
   },
   "homepage": "https://github.com/ym-project/esbuild-stylus-loader#readme",
   "bugs": "https://github.com/ym-project/esbuild-stylus-loader/issues",
