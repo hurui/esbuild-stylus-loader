@@ -1,5 +1,5 @@
 import * as path from 'path'
-import {promises as fs} from 'fs'
+import {promises as fs, existsSync} from 'fs'
 import {Plugin} from 'esbuild'
 import stylusToCss from './stylus-to-css'
 import {PluginOptions} from './types'
@@ -9,14 +9,26 @@ export function stylusLoader(pluginOptions: PluginOptions = {}): Plugin {
 		name: 'stylus-loader',
 		setup(build) {
 			const {sourcemap} = build.initialOptions
+			const includePaths =  pluginOptions?.stylusOptions?.include ?? []
 
 			// intercept stylus files
 			build.onResolve({filter: /\.(styl|stylus)$/}, args => {
+				const oldPath = args.path
+				let newPath = args.path
+				for (const includePath of includePaths) {
+					if (oldPath.startsWith(path.basename(includePath))) {
+						const AssumeExistPath = path.resolve(includePath, '..', oldPath)
+						if (existsSync(AssumeExistPath)) {
+							newPath = AssumeExistPath
+							break
+						}
+					}
+				}
 				return {
 					path: path.resolve(
 						process.cwd(),
 						path.relative(process.cwd(), args.resolveDir),
-						args.path,
+						newPath,
 					),
 					namespace: 'stylus',
 				}
